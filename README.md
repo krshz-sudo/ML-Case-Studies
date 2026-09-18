@@ -1,6 +1,6 @@
 # ML Case Studies
 
-**Utkarsh Singh**
+**Utkarsh Singh** (202501100400347)
 
 Two machine learning case studies I built end to end: cleaning raw data, training and comparing models, and then tuning a decision threshold for a reason that actually makes sense for the problem instead of just leaving it at the default 0.5.
 
