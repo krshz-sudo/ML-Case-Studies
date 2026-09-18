@@ -1,0 +1,54 @@
+<svg width="1000" height="230" viewBox="0 0 1000 230" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif">
+  <rect width="1000" height="230" fill="#ffffff"/>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5f5e5a"/>
+    </marker>
+  </defs>
+
+  <g font-size="13" text-anchor="middle">
+    <!-- 1 -->
+    <rect x="15" y="75" width="130" height="70" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="1"/>
+    <text x="80" y="103" font-weight="bold" fill="#0C447C">Raw data</text>
+    <text x="80" y="121" fill="#0C447C">60,000 txns</text>
+
+    <!-- 2 -->
+    <rect x="165" y="75" width="140" height="70" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="1"/>
+    <text x="235" y="97" font-weight="bold" fill="#3C3489">Clean + encode</text>
+    <text x="235" y="115" fill="#3C3489">impute, scale,</text>
+    <text x="235" y="131" fill="#3C3489">one-hot</text>
+
+    <!-- 3 -->
+    <rect x="325" y="75" width="140" height="70" rx="8" fill="#FBEAF0" stroke="#993556" stroke-width="1"/>
+    <text x="395" y="97" font-weight="bold" fill="#72243E">SMOTE</text>
+    <text x="395" y="115" fill="#72243E">train only</text>
+    <text x="395" y="131" fill="#72243E">170 -&gt; 44,830 fraud</text>
+
+    <!-- 4 -->
+    <rect x="485" y="75" width="160" height="70" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="1"/>
+    <text x="565" y="97" font-weight="bold" fill="#085041">XGBoost</text>
+    <text x="565" y="115" fill="#085041">vs Random Forest</text>
+    <text x="565" y="131" fill="#085041">baseline</text>
+
+    <!-- 5 -->
+    <rect x="665" y="75" width="150" height="70" rx="8" fill="#FAEEDA" stroke="#854F0B" stroke-width="1"/>
+    <text x="740" y="97" font-weight="bold" fill="#633806">Evaluate</text>
+    <text x="740" y="115" fill="#633806">ROC-AUC +</text>
+    <text x="740" y="131" fill="#633806">PR-AUC</text>
+
+    <!-- 6 -->
+    <rect x="835" y="75" width="150" height="70" rx="8" fill="#FAECE7" stroke="#993C1D" stroke-width="1"/>
+    <text x="910" y="97" font-weight="bold" fill="#712B13">Threshold tune</text>
+    <text x="910" y="115" fill="#712B13">precision &gt;= 30%</text>
+    <text x="910" y="131" fill="#712B13">floor</text>
+  </g>
+
+  <line x1="145" y1="110" x2="162" y2="110" stroke="#5f5e5a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="305" y1="110" x2="322" y2="110" stroke="#5f5e5a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="465" y1="110" x2="482" y2="110" stroke="#5f5e5a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="645" y1="110" x2="662" y2="110" stroke="#5f5e5a" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="815" y1="110" x2="832" y2="110" stroke="#5f5e5a" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <text x="500" y="30" text-anchor="middle" font-size="15" font-weight="bold" fill="#2C2C2A">Credit card fraud detection — pipeline</text>
+  <text x="500" y="195" text-anchor="middle" font-size="12" fill="#5f5e5a">Output: fraud probability per transaction -&gt; flagged if probability &gt; 0.0082 (~96.5% of fraud caught)</text>
+</svg>

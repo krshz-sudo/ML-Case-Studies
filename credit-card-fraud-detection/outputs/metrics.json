@@ -1,0 +1,51 @@
+{
+  "model_metrics": {
+    "xgboost": {
+      "roc_auc": 0.9922359938526635,
+      "pr_auc": 0.9297753324561574
+    },
+    "random_forest_baseline": {
+      "roc_auc": 0.9972832435770548,
+      "pr_auc": 0.7656246743729708
+    }
+  },
+  "test_fraud_rate": 0.0038,
+  "chosen_threshold": {
+    "value": 0.008214559406042099,
+    "min_precision_floor": 0.3,
+    "confusion_matrix": [
+      [
+        14815,
+        128
+      ],
+      [
+        2,
+        55
+      ]
+    ]
+  },
+  "default_threshold_0.5": {
+    "confusion_matrix": [
+      [
+        14938,
+        5
+      ],
+      [
+        7,
+        50
+      ]
+    ]
+  },
+  "n_train": 45000,
+  "n_test": 15000,
+  "smote_train_counts": {
+    "before": [
+      44830,
+      170
+    ],
+    "after": [
+      44830,
+      44830
+    ]
+  }
+}
