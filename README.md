@@ -1,21 +1,23 @@
-# ML Case Studies — Utkarsh Singh
+# ML Case Studies
 
-Two end-to-end machine learning case studies, each covering the full pipeline from raw data to a tuned, business-aware decision — not just a trained model.
+**Utkarsh Singh**
 
-| Case study | Problem | Model | Key result |
+Two machine learning case studies I built end to end: cleaning raw data, training and comparing models, and then tuning a decision threshold for a reason that actually makes sense for the problem instead of just leaving it at the default 0.5.
+
+| Case study | Problem | Model used | Result |
 |---|---|---|---|
-| [Hospital Readmission Risk](hospital-readmission-risk/) | Predict 30-day patient readmission | L2-regularized logistic regression | Cost-optimal threshold (0.54) saves ~$10,500 in expected cost vs. the default 0.5 cutoff |
-| [Credit Card Fraud Detection](credit-card-fraud-detection/) | Flag fraudulent transactions in a 0.38%-imbalanced dataset | XGBoost (vs. Random Forest baseline) + SMOTE | PR-AUC of 0.930 vs. 0.766 for the baseline; tuned threshold catches ~96.5% of fraud at ~30% precision |
+| [Hospital Readmission Risk](hospital-readmission-risk/) | Predict if a patient gets readmitted within 30 days | L2 regularized logistic regression | Threshold tuned by cost, saves about $10,500 in expected cost on the test set |
+| [Credit Card Fraud Detection](credit-card-fraud-detection/) | Catch fraud in a dataset where only 0.38% of transactions are fraud | XGBoost, compared against a Random Forest baseline | PR-AUC of 0.93 vs 0.77 for the baseline, tuned threshold catches ~96.5% of fraud |
 
-Each folder is a fully self-contained project with its own README, source code, data, notebook, and output plots. Click into either one for the full write-up (problem, approach, tools, and results).
+Open either folder for the full write up: the problem, what I tried, the tools used, and the actual numbers.
 
 ## Repo structure
 
 ```
-hospital-readmission-risk/       logistic regression + cost-based threshold tuning
-credit-card-fraud-detection/     XGBoost + SMOTE + PR-AUC-driven threshold tuning
+hospital-readmission-risk/       logistic regression, cost based threshold tuning
+credit-card-fraud-detection/     XGBoost, SMOTE, PR-AUC driven threshold tuning
 ```
 
-## Common approach across both
+## What's common between the two
 
-Both projects follow the same underlying pipeline: clean the data, preprocess it into a model-ready format (scikit-learn `Pipeline` + `ColumnTransformer`), train and compare models, then go one step further than a raw accuracy/AUC number — translating the model's output into a threshold chosen for a real-world reason (cost, or an operational precision floor), rather than defaulting to 0.5.
+Both projects follow the same basic shape: clean the data, build a preprocessing pipeline (scikit-learn `Pipeline` and `ColumnTransformer`), train and compare a couple of models, then don't stop at reporting AUC. In both cases I picked the classification threshold based on what a real mistake would actually cost, instead of defaulting to 0.5 like most beginner projects do.

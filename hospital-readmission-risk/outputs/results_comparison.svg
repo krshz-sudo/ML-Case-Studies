@@ -1,0 +1,16 @@
+<svg width="700" height="220" viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif">
+  <rect width="700" height="220" fill="#ffffff"/>
+  <text x="350" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#2C2C2A">Expected cost on the test set (1,500 patients)</text>
+
+  <!-- bar 1: default threshold -->
+  <text x="40" y="80" font-size="13" fill="#2C2C2A">Default threshold (0.50)</text>
+  <rect x="220" y="62" width="420" height="26" rx="4" fill="#F0997B"/>
+  <text x="650" y="80" font-size="13" fill="#712B13" text-anchor="end">$549,500</text>
+
+  <!-- bar 2: optimal threshold -->
+  <text x="40" y="130" font-size="13" fill="#2C2C2A">Cost-optimal threshold (0.54)</text>
+  <rect x="220" y="112" width="412" height="26" rx="4" fill="#5DCAA5"/>
+  <text x="640" y="130" font-size="13" fill="#085041" text-anchor="end">$539,000</text>
+
+  <text x="350" y="180" text-anchor="middle" font-size="12" fill="#5f5e5a">Same model, different decision rule: saves about $10,500 on this test set</text>
+</svg>

@@ -1,0 +1,16 @@
+<svg width="700" height="220" viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif">
+  <rect width="700" height="220" fill="#ffffff"/>
+  <text x="350" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#2C2C2A">PR-AUC on the test set (the metric that matters most here)</text>
+
+  <!-- bar 1: XGBoost -->
+  <text x="40" y="80" font-size="13" fill="#2C2C2A">XGBoost</text>
+  <rect x="160" y="62" width="418" height="26" rx="4" fill="#5DCAA5"/>
+  <text x="588" y="80" font-size="13" fill="#085041" text-anchor="end">0.930</text>
+
+  <!-- bar 2: Random Forest -->
+  <text x="40" y="130" font-size="13" fill="#2C2C2A">Random Forest</text>
+  <rect x="160" y="112" width="344" height="26" rx="4" fill="#F0997B"/>
+  <text x="514" y="130" font-size="13" fill="#712B13" text-anchor="end">0.766</text>
+
+  <text x="350" y="180" text-anchor="middle" font-size="12" fill="#5f5e5a">ROC-AUC for both models looks nearly identical (0.99+), PR-AUC is where the real gap shows up</text>
+</svg>

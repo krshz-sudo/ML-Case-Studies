@@ -1,46 +1,48 @@
 # Hospital Readmission Risk
 
-Predicts whether a patient will be readmitted within 30 days of discharge, and turns that prediction into an actual staffing decision using a cost-based threshold instead of the default 0.5 cutoff.
+Predicts whether a patient will be readmitted within 30 days of being discharged, and uses that prediction to decide who actually needs a follow up call, based on cost, not on a default cutoff.
 
 ![Pipeline](outputs/pipeline_diagram.svg)
 
-## Problem
+## The problem
 
-Hospitals lose money and patients suffer worse outcomes when a preventable readmission is missed. But flagging every patient as "high risk" isn't free either — every flag means a follow-up call or home visit. The real question isn't just "who might be readmitted," it's "who is it worth intervening for."
+A missed readmission is expensive and bad for the patient. But calling every single discharged patient "just in case" isn't free either, someone has to make that call. So the real question isn't only "who might come back", it's "who is worth reaching out to given what a mistake actually costs."
 
 ## Data
 
-Synthetic patient encounter data (`data/patient_encounters.csv`, 6,000 rows) with vitals, prior admission history, diagnosis, discharge details, and insurance type. Generated with realistic correlations (e.g. more prior admissions -> higher readmission odds), and with missing values and duplicates injected on purpose so the cleaning step does real work.
+Synthetic patient encounter data (`data/patient_encounters.csv`, 6,000 rows): vitals, prior admission history, diagnosis, discharge details, insurance type. I generated it myself with realistic patterns baked in (more prior admissions pushes readmission risk up), and added missing values and duplicate rows on purpose so the cleaning step isn't skipped.
 
 ## Approach
 
-1. **Clean** — drop duplicates, impute missing values (median for numeric, `"Unknown"` for categorical).
-2. **Preprocess** — `StandardScaler` on numeric features, `OneHotEncoder` on categorical features, wrapped in an sklearn `Pipeline`.
-3. **Model** — L2-regularized logistic regression with `class_weight="balanced"` (readmission is only ~10% of cases). Compared against an unregularized baseline.
-4. **Decision layer** — instead of stopping at a probability, the model's output is passed through a cost sweep: every threshold from 0.01 to 0.99 is scored against `cost = FP x $500 + FN x $5,000`, and the threshold with the lowest expected cost is chosen.
+1. **Clean the data**: drop duplicates, fill missing values (median for numeric columns, "Unknown" for categorical ones).
+2. **Preprocess**: `StandardScaler` for numeric features, `OneHotEncoder` for categorical ones, all wrapped in an sklearn `Pipeline` so training and inference stay consistent.
+3. **Train the model**: L2 regularized logistic regression with `class_weight="balanced"`, since readmission only happens in about 10% of cases. Also trained an unregularized version to compare.
+4. **Pick a threshold that means something**: swept every threshold from 0.01 to 0.99 and scored each one against `cost = FP x $500 + FN x $5,000`, then picked the one with the lowest expected cost.
 
 ## Tools
 
-Python, pandas, scikit-learn (`LogisticRegression`, `Pipeline`, `ColumnTransformer`), matplotlib for plots, joblib for model persistence.
+Python, pandas, scikit-learn (`LogisticRegression`, `Pipeline`, `ColumnTransformer`), matplotlib, joblib.
 
 ## Results
+
+![Results](outputs/results_comparison.svg)
 
 | Metric | Value |
 |---|---|
 | ROC-AUC (L2) | 0.673 |
 | ROC-AUC (unregularized) | 0.674 |
 | Default threshold (0.5) expected cost | $549,500 |
-| Cost-optimal threshold | **0.54** |
-| Expected cost at optimal threshold | **$539,000** |
+| Cost-optimal threshold | 0.54 |
+| Expected cost at optimal threshold | $539,000 |
 
-Choosing the threshold by cost instead of defaulting to 0.5 saves roughly **$10,500** in expected cost on the test set (1,500 patients), without changing the model itself — just the decision rule applied to its output.
+Same model, different decision rule, and it saves roughly $10,500 in expected cost on the 1,500 patient test set. Regularization didn't move the AUC much here, its real job is keeping the model stable, not squeezing out extra accuracy.
 
 ## Repo structure
 
 ```
-src/generate_data.py   synthetic data generator
+src/generate_data.py   builds the synthetic dataset
 src/train.py            cleaning, preprocessing, training, threshold search
-data/                    generated dataset
+data/                    the generated dataset
 notebooks/               exploratory analysis
 outputs/                 metrics, trained model, plots
 ```
